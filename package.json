@@ -1,0 +1,36 @@
+{
+  "name": "stock-agent",
+  "version": "1.0.0",
+  "description": "Autonomous stock trading agent system",
+  "main": "dist/cli/run.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/cli/run.ts",
+    "start": "tsx src/cli/run.ts",
+    "check-approvals": "tsx src/cli/check-approvals.ts",
+    "approve": "tsx src/cli/approve.ts",
+    "lint": "tsc --noEmit",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ai",
+    "trading",
+    "agent"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@types/uuid": "^10.0.0",
+    "@types/yaml": "^1.9.6",
+    "pino": "^8.0.0",
+    "uuid": "^9.0.0",
+    "yaml": "^2.8.2",
+    "zod": "^3.22.4"
+  }
+}

@@ -1,0 +1,4 @@
+defaultModel: gpt-4
+temperature: 0.3
+maxTokens: 4000
+timeout: 30000

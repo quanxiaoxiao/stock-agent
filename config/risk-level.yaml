@@ -1,0 +1,4 @@
+levels:
+  auto: 2
+  approval: 3
+  manual: 4
