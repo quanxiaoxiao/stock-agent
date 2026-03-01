@@ -4,6 +4,7 @@ node_modules/
 # Build output
 dist/
 coverage/
+web/.next/
 
 # Environment variables
 .env

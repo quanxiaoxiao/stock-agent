@@ -122,7 +122,7 @@ npm run approve [proposal-id]
 npm run approve proposal_a1b2c3d4-e5f6-7890-1234-567890abcdef
 ```
 
-This moves trades from `memory/approvals/pending/` to `memory/approvals/approved/` AND executes the trade automatically.
+This moves trades from `memory/approvals/pending/` to `memory/approvals/approved/` and updates your intent profile.
 
 ### Processing All Approved Trades
 Process all trades in the approved queue:
@@ -132,6 +132,21 @@ npm run process-approved
 ```
 
 This finds all trades in `memory/approvals/approved/` and executes them, marking them as processed.
+
+### Browser Client (Next.js)
+Use the web console for visual interaction (run decisions, approve/reject/watch/adjust, process approved, inspect intent/outcomes):
+
+```bash
+# 1) in project root: build backend CLI first
+npm run build
+
+# 2) run Next.js client
+cd web
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000`.
 
 ### Intent Feedback
 Update your trading intent after each operation:
@@ -232,8 +247,8 @@ The system has a complete approval-to-execution cycle:
 
 1. Risky trades (Risk Level ≥ 3) go to `memory/approvals/pending/`
 2. Use `npm run check-approvals` to identify these trades
-3. Use `npm run approve [ID]` to move to `memory/approvals/approved/` AND execute
-4. Optionally, run `npm run process-approved` to execute all approved items not already executed
+3. Use `npm run approve [ID]` to move to `memory/approvals/approved/` and update intent
+4. Run `npm run process-approved` to execute approved items
 
 For safety, the system checks if a trade has already been executed when running the approving processing workflow (idempotency).
 
