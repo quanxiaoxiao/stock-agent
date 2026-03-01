@@ -1,6 +1,5 @@
 import { Agent } from '../../core/agent.js';
 import { TradeProposal } from '../../domain/proposal.js';
-import { RiskEvaluation } from '../../domain/types.js';
 import { TradeProposalSchema } from '../../domain/proposal.js';
 import { readFileSync } from 'fs';
 import { join } from 'path';

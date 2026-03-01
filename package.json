@@ -10,6 +10,7 @@
     "start": "tsx src/cli/run.ts",
     "check-approvals": "tsx src/cli/check-approvals.ts",
     "approve": "tsx src/cli/approve.ts",
+    "feedback": "tsx src/cli/feedback.ts",
     "process-approved": "tsx src/cli/process-approved.ts",
     "lint": "tsc --noEmit",
     "test": "vitest run --dir tests/"

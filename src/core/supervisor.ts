@@ -1,8 +1,7 @@
 import { Agent } from './agent.js';
 import { TradeProposal } from '../domain/proposal.js';
-import { AnalysisResult, StrategyResult } from '../domain/types.js';
+import { AnalysisResult } from '../domain/types.js';
 import { FileStore } from '../storage/fileStore.js';
-import { v4 as uuidv4 } from 'uuid';
 
 export class Supervisor {
   private fileStore: FileStore;
@@ -27,6 +26,7 @@ export class Supervisor {
 
     const finalProposal = await this.risk.run(partialProposal);
     console.log(`Risk assessment completed for proposal ${finalProposal.id}`);
+    this.fileStore.saveProposal(finalProposal);
 
     if (!finalProposal.requiresApproval) {
       console.log(`Executing automatic trade for ${symbol}`);

@@ -4,17 +4,14 @@ import { decisionFlow } from '../workflows/decision.workflow.js';
 
 async function main(): Promise<void> {
   const symbol = process.argv[2];
-  
-  if (!symbol) {
-    console.error('Usage: npm start <SYMBOL>');
-    console.error('Example: npm start AAPL');
-    process.exit(1);
+  if (symbol) {
+    console.log(`Starting stock analysis for: ${symbol.toUpperCase()}`);
+  } else {
+    console.log('Starting intent-driven stock analysis (auto select from A-share universe)');
   }
   
-  console.log(`Starting stock analysis for: ${symbol.toUpperCase()}`);
-  
   try {
-    await decisionFlow(symbol.toUpperCase());
+    await decisionFlow(symbol?.toUpperCase());
     console.log('Process completed successfully');
   } catch (error) {
     console.error('Error during execution:', error);

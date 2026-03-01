@@ -99,6 +99,12 @@ npm start AAPL
 
 This runs the complete workflow: Analyst → Strategist → RiskAgent → Trader
 
+Run without symbol to let the system auto-select from A-share universe using your intent:
+
+```bash
+npm start
+```
+
 ### Checking Pending Approvals
 View any high-risk trades waiting for human approval:
 
@@ -126,6 +132,20 @@ npm run process-approved
 ```
 
 This finds all trades in `memory/approvals/approved/` and executes them, marking them as processed.
+
+### Intent Feedback
+Update your trading intent after each operation:
+
+```bash
+# reject proposal and update intent
+npm run feedback <proposal-id> REJECT "too aggressive"
+
+# adjust sizing/horizon and update intent
+npm run feedback <proposal-id> ADJUST --size=6 --days=12 "prefer smaller, shorter"
+
+# watch-only and update intent
+npm run feedback <proposal-id> WATCH "wait and observe"
+```
 
 ### Development Commands
 

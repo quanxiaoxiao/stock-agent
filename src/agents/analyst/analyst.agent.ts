@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import { Agent } from '../../core/agent.js';
 import { AnalysisResult, MarketData } from '../../domain/types.js';
 
