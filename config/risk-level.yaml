@@ -1,4 +1,11 @@
 levels:
-  auto: 2
-  approval: 3
-  manual: 4
+  auto: 2      # Risk level 1-2: Automatic execution
+  approval: 3  # Risk level 3: Need approval
+  manual: 4    # Risk level 4-5: Manual only (blocked automatically)
+  executionModes:
+    # Modes: 'AUTO', 'APPROVAL', 'MANUAL_BLOCK'
+    1: "AUTO"
+    2: "AUTO" 
+    3: "APPROVAL"
+    4: "MANUAL_BLOCK"
+    5: "MANUAL_BLOCK"

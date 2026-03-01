@@ -1,4 +1,5 @@
-import { TradeProposal } from '../domain/proposal';
+import { TradeProposal } from '../domain/proposal.js';
+import { TradeProposalSchema } from '../domain/proposal.js';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from 'fs';
 import { join } from 'path';
 
@@ -19,19 +20,23 @@ export class FileStore {
   }
 
   saveProposal(proposal: TradeProposal): void {
-    const filePath = join(this.basePath, 'proposals', `${proposal.id}.json`);
-    writeFileSync(filePath, JSON.stringify(proposal, null, 2));
+    // Validate before saving
+    const validatedProposal = TradeProposalSchema.parse(proposal);
+    const filePath = join(this.basePath, 'proposals', `${validatedProposal.id}.json`);
+    writeFileSync(filePath, JSON.stringify(validatedProposal, null, 2));
   }
 
   saveForApproval(proposal: TradeProposal): void {
-    const filePath = join(this.basePath, 'approvals', 'pending', `${proposal.id}.json`);
+    // Validate before saving
+    const validatedProposal = TradeProposalSchema.parse(proposal);
+    const filePath = join(this.basePath, 'approvals', 'pending', `${validatedProposal.id}.json`);
     const pendingDir = join(this.basePath, 'approvals', 'pending');
     
     if (!existsSync(pendingDir)) {
       mkdirSync(pendingDir, { recursive: true });
     }
     
-    writeFileSync(filePath, JSON.stringify(proposal, null, 2));
+    writeFileSync(filePath, JSON.stringify(validatedProposal, null, 2));
   }
 
   getPendingApprovals(): TradeProposal[] {
@@ -46,7 +51,11 @@ export class FileStore {
       .map((file: string) => {
         const filePath = join(pendingDir, file);
         const content = readFileSync(filePath, 'utf8');
-        return JSON.parse(content);
+        const parsed = JSON.parse(content);
+        
+        // Validate the retrieved proposal
+        const validatedProposal = TradeProposalSchema.parse(parsed);
+        return validatedProposal;
       });
   }
 }

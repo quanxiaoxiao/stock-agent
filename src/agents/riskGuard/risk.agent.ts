@@ -1,6 +1,7 @@
-import { Agent } from '../../core/agent';
-import { TradeProposal } from '../../domain/proposal';
-import { RiskEvaluation } from '../../domain/types';
+import { Agent } from '../../core/agent.js';
+import { TradeProposal } from '../../domain/proposal.js';
+import { RiskEvaluation } from '../../domain/types.js';
+import { TradeProposalSchema } from '../../domain/proposal.js';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import YAML from 'yaml';
@@ -27,8 +28,15 @@ export class RiskAgent implements Agent<Partial<TradeProposal>, TradeProposal> {
       timestamp: Date.now(),
     };
     
-    // Determine if approval is needed based on risk level
-    proposalWithDefaults.requiresApproval = proposalWithDefaults.riskLevel >= riskConfig.levels.approval;
+    // Determine execution mode based on risk level
+    // Level 1-2: Auto execute
+    // Level 3: Approval required 
+    // Level 4+: Manual block (will require special handling outside of standard flow)
+    const executionMode = this.getExecutionMode(proposalWithDefaults.riskLevel);
+    
+    // Mark for approval if in approval range, block if in manual block range
+    proposalWithDefaults.requiresApproval = 
+      executionMode === 'APPROVAL' || executionMode === 'MANUAL_BLOCK';
     
     // For demonstration purposes, let's also require approval for certain high-risk symbols
     // These are typically highly volatile stocks like VXX, UVXY, etc.
@@ -38,7 +46,20 @@ export class RiskAgent implements Agent<Partial<TradeProposal>, TradeProposal> {
       proposalWithDefaults.riskLevel = 4; // Increase risk level for volatile symbols
     }
     
-    return proposalWithDefaults;
+    // Validate using Zod schema before returning
+    const validatedProposal = TradeProposalSchema.parse(proposalWithDefaults);
+    
+    return validatedProposal;
+  }
+  
+  private getExecutionMode(riskLevel: number): string {
+    if (riskLevel <= riskConfig.levels.auto) {
+      return 'AUTO';
+    } else if (riskLevel < riskConfig.levels.manual) {
+      return 'APPROVAL';  // Level 3 
+    } else {
+      return 'MANUAL_BLOCK';  // Level 4+
+    }
   }
   
   private calculateRiskLevel(proposal: Partial<TradeProposal>): number {

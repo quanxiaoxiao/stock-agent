@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { FileStore } from '../storage/fileStore';
+import { FileStore } from '../storage/fileStore.js';
 
 async function checkApprovals(): Promise<void> {
   const store = new FileStore();

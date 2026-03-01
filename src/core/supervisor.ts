@@ -1,7 +1,7 @@
-import { Agent } from './agent';
-import { TradeProposal } from '../domain/proposal';
-import { AnalysisResult, StrategyResult } from '../domain/types';
-import { FileStore } from '../storage/fileStore';
+import { Agent } from './agent.js';
+import { TradeProposal } from '../domain/proposal.js';
+import { AnalysisResult, StrategyResult } from '../domain/types.js';
+import { FileStore } from '../storage/fileStore.js';
 import { v4 as uuidv4 } from 'uuid';
 
 export class Supervisor {

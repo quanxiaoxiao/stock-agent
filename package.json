@@ -10,8 +10,9 @@
     "start": "tsx src/cli/run.ts",
     "check-approvals": "tsx src/cli/check-approvals.ts",
     "approve": "tsx src/cli/approve.ts",
+    "process-approved": "tsx src/cli/process-approved.ts",
     "lint": "tsc --noEmit",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run --dir tests/"
   },
   "keywords": [
     "ai",
@@ -23,12 +24,12 @@
   "devDependencies": {
     "@types/node": "^20.0.0",
     "tsx": "^4.7.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "vitest": "^4.0.18"
   },
   "dependencies": {
     "@types/uuid": "^10.0.0",
     "@types/yaml": "^1.9.6",
-    "pino": "^8.0.0",
     "uuid": "^9.0.0",
     "yaml": "^2.8.2",
     "zod": "^3.22.4"

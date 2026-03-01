@@ -3,6 +3,9 @@
 import { readFileSync, renameSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 import YAML from 'yaml';
+import { FileStore } from '../storage/fileStore.js';
+import { TradeProposalSchema } from '../domain/proposal.js';
+import { TraderAgent } from '../agents/trader/trader.agent.js';
 
 // Load risk config
 const riskConfig = YAML.parse(
@@ -26,6 +29,22 @@ if (process.argv[2]) {
   if (existsSync(pendingFile)) {
     renameSync(pendingFile, approvedFile);
     console.log(`Approved: ${proposalId}`);
+    
+    // Also trigger execution of approved trade (Part of the approval-to-execution loop)
+    const proposalContent = readFileSync(approvedFile, 'utf8');
+    const proposal = JSON.parse(proposalContent);
+    
+    // Validate the proposal with Zod
+    try {
+      const validatedProposal = TradeProposalSchema.parse(proposal);
+      
+      // Execute the trade
+      const trader = new TraderAgent();
+      trader.run(validatedProposal);
+      console.log(`Executed trade for: ${validatedProposal.id}`);
+    } catch (validationError) {
+      console.error(`Validation error for proposal ${proposalId}:`, validationError);
+    }
   } else {
     console.log(`Could not find: ${proposalId} in pending approvals`);
   }

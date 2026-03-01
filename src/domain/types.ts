@@ -1,4 +1,4 @@
-import { TradeProposal } from './proposal';
+import { TradeProposal } from './proposal.js';
 
 // Additional domain types
 export interface AnalysisResult {

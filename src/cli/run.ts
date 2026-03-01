@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { decisionFlow } from '../workflows/decision.workflow';
+import { decisionFlow } from '../workflows/decision.workflow.js';
 
 async function main(): Promise<void> {
   const symbol = process.argv[2];

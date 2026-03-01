@@ -1,8 +1,8 @@
-import { Supervisor } from '../core/supervisor';
-import { AnalystAgent } from '../agents/analyst/analyst.agent';
-import { StrategistAgent } from '../agents/strategist/strategist.agent';
-import { RiskAgent } from '../agents/riskGuard/risk.agent';
-import { TraderAgent } from '../agents/trader/trader.agent';
+import { Supervisor } from '../core/supervisor.js';
+import { AnalystAgent } from '../agents/analyst/analyst.agent.js';
+import { StrategistAgent } from '../agents/strategist/strategist.agent.js';
+import { RiskAgent } from '../agents/riskGuard/risk.agent.js';
+import { TraderAgent } from '../agents/trader/trader.agent.js';
 
 export async function decisionFlow(
   symbol: string

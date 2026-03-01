@@ -1,6 +1,6 @@
-import { Agent } from '../../core/agent';
-import { AnalysisResult } from '../../domain/types';
-import { TradeProposal } from '../../domain/proposal';
+import { Agent } from '../../core/agent.js';
+import { AnalysisResult } from '../../domain/types.js';
+import { TradeProposal } from '../../domain/proposal.js';
 import { v4 as uuidv4 } from 'uuid';
 
 export class StrategistAgent implements Agent<AnalysisResult, Partial<TradeProposal>> {
