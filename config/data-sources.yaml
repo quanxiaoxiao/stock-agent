@@ -1,0 +1,35 @@
+providers:
+  default: mock
+  available:
+    - name: mock
+      type: mock
+      enabled: true
+      description: "Mock data provider for testing and development"
+    
+    - name: yahoo
+      type: yahoo-finance
+      enabled: false
+      description: "Yahoo Finance API"
+      apiKey: "${YAHOO_API_KEY}"
+    
+    - name: tushare
+      type: tushare
+      enabled: false
+      description: "Tushare A股数据"
+      apiKey: "${TUSHARE_TOKEN}"
+
+cache:
+  snapshotTTL: 60000
+  historyTTL: 300000
+  technicalsTTL: 600000
+  fundamentalsTTL: 3600000
+
+sync:
+  autoSync: true
+  syncInterval: 300000
+  symbols:
+    - AAPL
+    - GOOGL
+    - MSFT
+    - TSLA
+    - AMZN
