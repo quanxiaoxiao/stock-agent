@@ -13,7 +13,8 @@
     "feedback": "tsx src/cli/feedback.ts",
     "process-approved": "tsx src/cli/process-approved.ts",
     "lint": "tsc --noEmit",
-    "test": "vitest run --dir tests/"
+    "test": "vitest run --dir tests/",
+    "start:all": "node scripts/start-all.mjs"
   },
   "keywords": [
     "ai",
@@ -24,6 +25,8 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.0.0",
+    "concurrently": "^9.2.1",
+    "open-cli": "^8.0.0",
     "tsx": "^4.7.0",
     "typescript": "^5.0.0",
     "vitest": "^4.0.18"
