@@ -56,3 +56,5 @@ npm-debug.log*
 
 # Typescript output
 *.tsbuildinfo
+
+memory/
